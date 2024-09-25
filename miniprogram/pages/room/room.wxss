@@ -1,0 +1,185 @@
+/* pages/room.wxss */
+page{
+  background: #e9e9e9;
+}
+.users{
+  padding: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.users .box{
+  flex: none;
+  width: 156rpx;
+  height: 240rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  display: inline-grid;
+  margin-top: 20rpx;
+}
+.box:not(:last-child) {
+  margin-right: 30rpx;
+}
+.users .box .s-main{
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.users .box .cover{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 100%;
+  background-size: cover;
+  background-position: center;
+  margin: auto;
+  position: relative;
+}
+.users .box .name{
+  font-size: 28rpx;
+  text-align: center;
+  padding-top: 10rpx;
+  max-width: 100rpx;
+  margin: auto;
+  line-height: 30rpx;
+}
+.users .box .pay{
+  font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.users .box .pay .icon{
+  font-size: 24rpx;
+}
+
+.msgs{
+  padding-top: 30rpx;
+}
+.msgs .item{
+  margin-bottom: 30rpx;
+}
+.msgs .time{
+  font-size: 26rpx;
+  color: #666666;
+  text-align: center;
+  padding-bottom: 10rpx;
+}
+.msgs .msg{
+  font-size: 28rpx;
+  color: #1f2229;
+  text-align: center;
+  padding: 0 30rpx;
+}
+.msgs .msg .name{
+  color: #FF5032;
+  padding: 0 10rpx;
+}
+.msgs .msg .pay{
+  color: #008d55;
+  padding: 0 10rpx;
+}
+
+.logs-scroll{
+  height: calc(100vh - 460rpx);
+}
+
+.footer{
+  width: 100vw;
+  height: 140rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.footer .main{
+  padding: 20rpx 30rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+.footer .main .box{
+  height: 86rpx;
+  background: #ffffff;
+  border-radius: 100rpx;
+  width: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #1f2229;
+}
+.footer .main .box text{
+  margin-left: 10rpx;
+}
+
+
+.pay-ss{
+  width: 70vw;
+  min-height: 600rpx;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding-top: 30rpx;
+}
+.pay-ss .item{
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  color: #1f2229;
+  height: 84rpx;
+  margin-bottom: 40rpx;
+}
+.pay-ss .item .name{
+  width: 140rpx;
+}
+.pay-ss .item .value{
+  flex: 1;
+}
+.pay-ss .item input{
+  border: 1px solid #898989;
+  height: 84rpx;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  border-radius: 10rpx;
+  color: #1f2229;
+  font-weight: bold;
+  
+}
+.pay-ss .btn{
+  padding: 30rpx;
+}
+.pay-ss .hint{
+  font-size: 28rpx;
+  color: #FF5032;
+  padding: 30rpx;
+}
+.add-room-clear{
+  color: #ffffff;
+  font-size: 86rpx;
+  text-align: center;
+  padding-top: 30rpx;
+}
+.s-main .name {
+  text-align: center;
+  font-size: 24rpx;
+}
+.s-main .score {
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.s-main .green {
+  color:#008d55
+}
+
+.s-main .red {
+  color:red
+}
+.wode {
+  font-weight: bolder;
+}

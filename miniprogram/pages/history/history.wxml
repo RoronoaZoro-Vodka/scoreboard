@@ -1,0 +1,34 @@
+<!--pages/history/history.wxml-->
+<view class="history-page">
+  <view class="rooms" wx:if="{{rooms.length > 0}}">
+    <van-collapse accordion value="{{ activeName }}" bind:change="onCollapseChange">
+      <van-collapse-item wx:for="{{rooms}}" wx:key="_id" name="{{item.roomNum}}">
+        <view slot="title" style="display: flex;">
+          <text style="font-weight: bolder;" style="width:50%;">房号{{item.roomNum}}</text>
+          <text wx:if="{{item.iScore > 0}}" style="width:50%;text-align:right;color: #4CAF50;">赢</text>
+          <text wx:elif="{{item.iScore == 0}}"  style="width:50%;text-align:right;">平</text>
+          <text wx:else  style="width:50%;text-align:right;color: red;">输</text>
+        </view>
+        <van-skeleton row="3" loading="{{ item.loading == null || item.loading == undefined || !!item.loading }}">
+          <view>
+            <van-cell-group>
+            <view wx:for-item="user" class="{{(user.score >= 0 ? 'score-text-green ' : 'score-text-red ') + (user.me ? 'user-me' : '')}}" wx:for="{{item.users}}" >
+              <van-cell wx:key="_id" value="{{user.score}}">
+                <view slot="icon" wx:if="{{user.me}}">
+                  <van-icon name="manager" />
+                </view>
+                <view slot="title">
+                  <view class="van-cell-text">{{user.me ? '我' : user.userName}}</view>
+                </view>
+              </van-cell>
+            </view>
+            </van-cell-group>
+          </view>
+        </van-skeleton>
+      </van-collapse-item>
+    </van-collapse>
+  </view>
+  <view class="empty-rooms" wx:if="{{rooms.length === 0}}">
+    <van-empty description="暂未有任何已结算的计分比赛" />
+  </view>
+</view>

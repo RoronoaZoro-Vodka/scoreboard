@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-popup": "@vant/weapp/popup/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-dialog": "@vant/weapp/dialog/index"
+  }
+}

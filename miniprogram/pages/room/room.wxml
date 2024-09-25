@@ -1,0 +1,89 @@
+<!--pages/room.wxml-->
+<view>
+  <view style="text-align: center;font-size:26rpx;color: green;">
+    <text>已开放{{survival}}</text>
+  </view>
+  <view class="users">
+    <view enable-flex>
+      <van-row wx:for="{{gridRow}}">
+        <van-col span="6" wx:for="{{item}}" wx:for-item="user">
+          <view wx:if="{{!user.me}}" class="box" bindtap="showPayScore" data-user="{{user}}" data-me="{{user.me}}">
+            <view class="s-main">
+              <view class="cover" style="background-image: url({{user.avatarUrl}});">
+              </view>
+              <view class="name">
+                <text>{{user.userName}}</text>
+              </view>
+              <view class="{{user.score >= 0 ? 'score green' : 'score red'}}">
+                <text>{{user.score}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="box" data-user="{{user}}" wx:if="{{user.me}}">
+            <view class="s-main">
+              <button style="width: 80rpx;height: 80rpx;padding: unset;border-radius: 100%;" class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+                  <image style="width: 80rpx;height: 80rpx;border-radius: 100%;"  class="avatar" src="{{user.avatarUrl}}"></image>
+              </button>
+              <view class="name wode">
+                <input value="我" type="nickname" class="nickname-input" readonly bind:change="onInputChange" />
+              </view>
+              <view class="{{user.score >= 0 ? 'score green' : 'score red'}}">
+                <text>{{user.score}}</text>
+              </view>
+            </view>
+          </view>
+        </van-col>
+        <van-col span="6" wx:if="{{item.length < 4}}">
+          <view class="box" bindtap="invite">
+            <view class="s-main">
+              <view class="cover" style="background-image: url(https://7363-scoreboard-0gpkledv6793d20f-1328527080.tcb.qcloud.la/b.png?sign=8cbf2ea01787a05f178b0d04d9cd0654&t=1723107520);">
+              </view>
+              <view class="name">
+                <text>邀请</text>
+              </view>
+            </view>
+          </view>
+        </van-col>
+      </van-row>
+      <van-row wx:if="{{roomUsers.length%4 == 0}}">
+        <van-col span="6">
+          <view class="box" bindtap="invite">
+            <view class="s-main">
+              <view class="cover" style="background-image: url(https://7363-scoreboard-0gpkledv6793d20f-1328527080.tcb.qcloud.la/b.png?sign=8cbf2ea01787a05f178b0d04d9cd0654&t=1723107520);">
+              </view>
+              <view class="name">
+                <text>邀请</text>
+              </view>
+            </view>
+          </view>
+        </van-col>
+      </van-row>
+    </view>
+  </view>
+  <view class="room-log" style="height:800rpx;overflow-y: scroll;">
+    <van-steps steps="{{ roomLogs }}" active="{{ 0 }}" direction="vertical" active-color="#07c160" />
+  </view>
+  <view style="position:fixed;bottom: 0px;width: 100%;z-index: 99;">
+    <van-cell-group>
+      <van-field bind:change="onMessageChange" value="{{ sms }}" center clearable placeholder="输入" border="{{ false }}" use-button-slot>
+        <van-button slot="button" size="small" type="primary" bindtap="sendMessage">
+          发送
+        </van-button>
+      </van-field>
+    </van-cell-group>
+    <view style="display:flex;width: 100%;">
+      <view style="width: 50%;">
+        <button type="primary" bindtap="leaveRoom">下桌</button>
+      </view>
+      <view style="width: 50%;">
+        <button type="warn" bindtap="checkOutRoom">退房</button>
+      </view>
+    </view>
+  </view>
+  <van-popup show="{{ qrcodeInvite }}" round position="bottom" custom-style="height: 30%;text-align:center" bind:close="onInviteClose">
+    <image src="{{roomInfo.roomQrcode}}" style="width: 50%;padding: 20rpx;" mode="widthFix" show-menu-by-longpress="true"></image>
+  </van-popup>
+  <van-dialog show-cancel-button use-slot title="计分" show="{{ showPay }}" bind:close="onPayClose" bind:confirm="confirmScore">
+    <van-field bind:change="onChangePayScore" value="{{ payData.score }}" type="number" label="分数" placeholder="请输入分数" required border="{{ false }}" />
+  </van-dialog>
+</view>

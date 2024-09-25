@@ -1,0 +1,58 @@
+<!--pages/index/index.wxml-->
+<van-notice-bar left-icon="volume-o" text="该程序仅作为一个计分工具，不能涉及金钱，禁止用于违法行为。" />
+<!--  wx:if="{{!loading}}" -->
+<view class="home">
+  <view class="user-info">
+    <view class="cover">
+      <view class="singleArrow" wx:if="{{info.defaultAvatar}}"></view>
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+          <image class="avatar" src="{{info.avatarUrl}}"></image>
+      </button>
+    </view>
+    <view class="name">
+      <input value="{{info.userName}}" type="nickname" class="nickname-input" readonly placeholder="请输入昵称" bind:change="onInputChange" />
+    </view>
+    <view class="stat">
+      <text class="box">赢 <text class="bl color3">{{tongji.win}}</text>次</text>
+      <text class="box">输<text class="bl color2">{{tongji.lost}}</text>次</text>
+      <text class="box">平<text class="bl color2">{{tongji.eq}}</text>次</text>
+      <text class="box">胜率<text class="bl">{{tongji.winRate}}%</text></text>
+    </view>
+  </view>
+
+  <!-- 操作集合 -->
+  <view class="btns">
+    <view class="item" bindtap="setAddRoom">创建房间</view>
+    <view class="item" bindtap="setAddRoomJia">加入房间（扫码）</view>
+  </view>
+
+  <view class="links">
+    <text bindtap="myHisRoom">历史房间</text>
+    <van-icon name="arrow" />
+  </view>
+  <!-- 底部说明 -->
+  <view class="footer">
+    <text class="protocol" bindtap="instructions">用户使用说明</text>
+    <text class="protocol">version 1.0.0</text>
+  </view>
+  <van-popup show="{{ instructions }}" bind:close="isXyiClose" custom-style="background:none">
+    <view class="add-room">
+      <view class="x-title">用户使用说明（必看）</view>
+      <view class="txtxt">
+        “该程序”是一个计分工具，不能涉及金钱，
+        <text style="font-weight:bolder;">禁止</text>
+        用于违法行为。
+      </view>
+      <view class="txtxt">
+        <text style="font-weight:bolder;">禁止</text>使用该工具，进行一切违反法律法规的操作。如有不听者，与本程序以及开发者无关！
+      </view>
+      <view class="txtxt">
+        如果有问题或建议请联系v：zengxiao-backup
+      </view>
+    </view>
+    <view class="add-room-clear">
+      <van-icon name="clear" bindtap="isXyiClose" />
+    </view>
+  </van-popup>
+  <van-dialog id="van-dialog" />
+</view>

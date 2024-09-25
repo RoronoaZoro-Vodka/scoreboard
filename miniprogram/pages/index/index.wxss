@@ -1,0 +1,219 @@
+/* pages/index/index.wxss */
+.user-info{
+  padding-top: 60rpx;
+}
+.user-info .cover{
+width: 200rpx;
+height: 200rpx;
+border-radius: 50%;
+background-size: cover;
+background-position: center;
+margin: auto;
+}
+.user-info .name{
+padding-top: 30rpx;
+font-size: 36rpx;
+color: #000000;
+font-weight: bold;
+text-align: center;
+}
+.user-info .stat{
+text-align: center;
+margin-top: 30rpx;
+}
+.user-info .stat .box{
+font-size: 28rpx;
+color: #000000;
+margin: 0 30rpx;
+}
+.user-info .stat .box .bl{
+font-weight: bold;
+color: #FF5032;
+padding: 0 6rpx;
+}
+
+.btns{
+padding-top: 40rpx;
+}
+.btns .item{
+width: 70vw;
+height: 98rpx;
+background: #1f2229;
+color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 28rpx;
+border-radius: 80rpx;
+margin: 40rpx auto;
+}
+
+.links{
+font-size: 28rpx;
+color: #FF5032;
+text-align: center;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.x-title{
+font-size: 36rpx;
+color: #1f2229;
+font-weight: bold;
+text-align: center;
+}
+.txtxt{
+padding-top: 30rpx;
+font-size: 28rpx;
+color: #FF5032;
+}
+.footer{
+font-size: 24rpx;
+box-sizing: border-box;
+color: #909999;
+display: flex;
+justify-content: center;
+position: fixed;
+bottom: 100rpx;
+width: 100vw;
+left: 0;
+}
+.footer .protocol{
+padding: 0 40rpx;
+}
+
+
+
+.add-room{
+width: 70vw;
+max-height: 400rpx;
+border-radius: 20rpx;
+background: #ffffff;
+padding: 60rpx 30rpx;
+}
+.add-room input{
+height: 98rpx;
+border: 1px solid #999999;
+font-size: 28rpx;
+padding: 0 30rpx;
+color: #1f2229;
+font-weight: bold;
+border-radius: 80rpx;
+}
+.add-room button{
+border-radius: 80rpx;
+background: #FF5032;
+color: #ffffff;
+font-weight: bold;
+margin-top: 40rpx;
+}
+.add-room-clear{
+color: #ffffff;
+font-size: 86rpx;
+text-align: center;
+padding-top: 30rpx;
+}
+
+
+.logs{
+height: 100vh;
+width: 60vw;
+padding: 40rpx 0rpx 30rpx 30rpx;
+}
+.logs .title{
+font-size: 32rpx;
+color: #1f2229;
+font-weight: bold;
+}
+.logs .list{
+padding-top: 30rpx;
+}
+.logs .list .box{
+margin-bottom: 30rpx;
+font-size: 28rpx;
+color: #1f2229;
+color: #1f2229;
+padding-bottom: 30rpx;
+border-bottom: 1px solid #999999;
+padding-right: 30rpx;
+position: relative;
+}
+.logs .list .box .sub-title{
+font-weight: bold;
+}
+.logs .list .box .star{
+padding: 10rpx 0;
+display: flex;
+align-items: center;
+}
+.logs .list .box .star .tx{
+width: 68rpx;
+height: 68rpx;
+background: red;
+border-radius: 50%;
+margin-left: -34rpx;
+background-size: cover;
+}
+.logs .list .box .star .tx:first-child{
+margin-left: 0;
+}
+.logs .list .box .a1{
+margin-right: 30rpx;
+}
+.logs .list .box .a2{
+font-weight: bold;
+color: #FF5032;
+}
+.logs .list .box .icon{
+position: absolute;
+right: 30rpx;
+top: 50rpx;
+font-size: 32rpx;
+}
+
+.avatar-wrapper {
+  padding: 0;
+  width: 200rpx !important;
+  border-radius: 50%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.avatar {
+  display: block;
+  width: 200rpx;
+  height: 200rpx;
+}
+.cover::after {
+  content: '';
+}
+
+.singleArrow {
+  width: 100rpx;
+    height: 10rpx;
+    position: absolute;
+    background-color: #000000;
+    left: 154rpx;
+    transform: rotate(31deg);
+}
+    @-webkit-keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 1; }
+        50.01% { opacity: 0; }
+        100% { opacity: 0; }
+    }
+.singleArrow::before {
+  content: '点击修改头像';
+  font-size: 25rpx;
+  animation:blink 0.5s linear forwards infinite;
+}
+.singleArrow::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: -20rpx;  /* 箭头位置 */
+  top: -5rpx;  /* 箭头位置 */
+  border-top: 10rpx solid transparent; 	/* 箭头高低 */
+  border-bottom: 10rpx solid transparent; /* 箭头高低 */
+  border-left: 20rpx solid #000000; /* 箭头长度*/
+}

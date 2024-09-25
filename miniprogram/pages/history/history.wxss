@@ -1,0 +1,13 @@
+/* pages/history/history.wxss */
+.score-text-green .van-cell__value {
+  color: rgb(5, 196, 5) !important;
+}
+.score-text-red .van-cell__value {
+  color: red !important;
+}
+.user-me .van-cell__title {
+  font-weight: bolder;
+}
+.user-me {
+  background-color: rgb(189, 189, 189);
+}
