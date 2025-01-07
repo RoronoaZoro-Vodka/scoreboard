@@ -3,7 +3,7 @@ App<IAppOption>({
   globalData: {},
   onLaunch() {
     wx.cloud.init({
-      env: 'scoreboard-xxxxxxxxxxxxx', //填上你的云开发环境id
+      env: 'scoreboard-0gpkledv6793d20f', //填上你的云开发环境id
       traceUser: true,
     })
 

@@ -4,15 +4,15 @@
     <van-collapse accordion value="{{ activeName }}" bind:change="onCollapseChange">
       <van-collapse-item wx:for="{{rooms}}" wx:key="_id" name="{{item.roomNum}}">
         <view slot="title" style="display: flex;">
-          <text style="font-weight: bolder;" style="width:50%;">房号{{item.roomNum}}</text>
-          <text wx:if="{{item.iScore > 0}}" style="width:50%;text-align:right;color: #4CAF50;">赢</text>
-          <text wx:elif="{{item.iScore == 0}}"  style="width:50%;text-align:right;">平</text>
-          <text wx:else  style="width:50%;text-align:right;color: red;">输</text>
+          <text style="font-weight: bolder;width:80%;">{{item.createTime}}({{item.roomNum}})</text>
+          <text wx:if="{{item.iScore > 0}}" style="width:20%;text-align:right;color: #4CAF50;">赢</text>
+          <text wx:elif="{{item.iScore == 0}}"  style="width:20%;text-align:right;">平</text>
+          <text wx:else  style="width:20%;text-align:right;color: red;">输</text>
         </view>
         <van-skeleton row="3" loading="{{ item.loading == null || item.loading == undefined || !!item.loading }}">
           <view>
             <van-cell-group>
-            <view wx:for-item="user" class="{{(user.score >= 0 ? 'score-text-green ' : 'score-text-red ') + (user.me ? 'user-me' : '')}}" wx:for="{{item.users}}" >
+            <view wx:for-item="user" class="{{(user.score >= 0 ? 'score-text-green ' : 'score-text-red ') + (user.me ? 'user-me' : '')}}" wx:for="{{item.users}}" wx:key="index">
               <van-cell wx:key="_id" value="{{user.score}}">
                 <view slot="icon" wx:if="{{user.me}}">
                   <van-icon name="manager" />

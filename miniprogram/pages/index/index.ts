@@ -11,6 +11,7 @@ Page({
   data: {
     isAddRoom: false,
     isLog: false,
+    addRoomText: '创建房间',
     info: {
       userName: '',
       defaultAvatar: true,
@@ -21,7 +22,8 @@ Page({
     rooms: [],
     loading: true,
     code: '',
-    inRoom: false
+    inRoom: false,
+    roomNum: ''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -40,8 +42,8 @@ Page({
     }
     wx.scanCode({
       onlyFromCamera: false,// 只允许从相机扫码
-      success(res){
-        const text:any = res.result
+      success(res) {
+        const text: any = res.result
         const roomNum = Number(text.replace('room:', ''))
         // 扫码成功后  在此处理接下来的逻辑
         wx.cloud.callFunction({
@@ -77,28 +79,35 @@ Page({
       });
       return
     }
-    wx.showModal({
-      title: '提示',
-      content: '确定要创建一个新的房间吗？',
-      success(res) {
-        if (res.confirm) {
-          wx.showLoading({
-            title:"创建中"
-          })
-          wx.cloud.callFunction({
-            name: 'createRoom',
-            success: function (res:any) {
-              wx.hideLoading()
-              wx.redirectTo({
-                url: '/pages/room/room?id=' + res.result.roomNum,
-              })
-            },
-            fail: console.error
-          })
-          // 创建房间并且打开这个页面喽
+    if (this.data.inRoom) {
+      // 转入所在房间页面
+      wx.redirectTo({
+        url: '/pages/room/room?id=' + this.data.roomNum,
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '确定要创建一个新的房间吗？',
+        success(res) {
+          if (res.confirm) {
+            wx.showLoading({
+              title: "创建中"
+            })
+            wx.cloud.callFunction({
+              name: 'createRoom',
+              success: function (res: any) {
+                wx.hideLoading()
+                wx.redirectTo({
+                  url: '/pages/room/room?id=' + res.result.roomNum,
+                })
+              },
+              fail: console.error
+            })
+            // 创建房间并且打开这个页面喽
+          }
         }
-      }
-    });
+      });
+    }
   },
   onCloseRoom() {
     this.setData({
@@ -126,7 +135,7 @@ Page({
     wx.cloud.callFunction({
       // 云函数名称
       name: 'login',
-      success: function (res:any) {
+      success: function (res: any) {
         _this.initFun(res.result)
       },
       fail: console.error
@@ -148,38 +157,35 @@ Page({
     })
     // 判断当前用户是否有未结算房间
     const _this = this
-    func.query('tally_room_users', {state: 1}, true).then((room:any) => {
-      if (room?.length == 0) {
-        // 提示创建/加入房间
+    func.query('tally_room_users', { state: 1 }, true).then((room: any) => {
+      _this.setData({
+        inRoom: room && room?.length != 0
+      })
+      if (_this.data.inRoom) {
         _this.setData({
-          inRoom: false
+          roomNum: room[0].roomNum
         })
-        wx.cloud.callFunction({
-          // 云函数名称
-          name: 'getUserTotalScore',
-          success: function (res:any) {
-            _this.setData({
-              tongji: res.result
-            })
-          },
-          fail: console.error
-        })
-        wx.hideLoading()
-      } else {
-        // 转入所在房间页面
-        wx.redirectTo({
-          url: '/pages/room/room?id=' + room[0].roomNum,
-        })
-        wx.hideLoading()
       }
+      // 提示创建/加入房间
+      wx.cloud.callFunction({
+        // 云函数名称
+        name: 'getUserTotalScore',
+        success: function (res: any) {
+          _this.setData({
+            tongji: res.result
+          })
+        },
+        fail: console.error
+      })
+      wx.hideLoading()
     })
   },
 
-    onChooseAvatar(e: any) {
+  onChooseAvatar(e: any) {
     let { avatarUrl } = e.detail
     let _imgbase64 = 'data:image/png;base64,' + wx.getFileSystemManager().readFileSync(avatarUrl, "base64")
     const _this = this
-    func.update('sys_user', {}, {avatarUrl: _imgbase64, defaultAvatar: false}, true).then((res:any) => {
+    func.update('sys_user', {}, { avatarUrl: _imgbase64, defaultAvatar: false }, true).then((res: any) => {
       if (!!res) {
         _this.setData({
           'info.avatarUrl': _imgbase64,
@@ -192,7 +198,7 @@ Page({
     const name = e.detail.value
     const _this = this
     if (name != this.data.info.userName) {
-      func.update('sys_user', {}, {userName: name, defaultName: false}, true).then((res:any) => {
+      func.update('sys_user', {}, { userName: name, defaultName: false }, true).then((res: any) => {
         if (!!res) {
           _this.setData({
             'info.userName': name,
@@ -202,5 +208,5 @@ Page({
       })
     }
   },
-  onShareAppMessage() {}
+  onShareAppMessage() { }
 })

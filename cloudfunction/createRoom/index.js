@@ -4,7 +4,6 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 const db = cloud.database({
   throwOnNotFound: false
 })
-
 const roomQrCode = async (roomNum) => {
   const result = await cloud.openapi.wxacode.getUnlimited({
     "page": 'pages/room/room',

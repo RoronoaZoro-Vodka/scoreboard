@@ -5,8 +5,8 @@
   </view>
   <view class="users">
     <view enable-flex>
-      <van-row wx:for="{{gridRow}}">
-        <van-col span="6" wx:for="{{item}}" wx:for-item="user">
+      <van-row wx:for="{{gridRow}}" wx:key="index">
+        <van-col span="6" wx:for="{{item}}" wx:for-item="user" wx:key="index">
           <view wx:if="{{!user.me}}" class="box" bindtap="showPayScore" data-user="{{user}}" data-me="{{user.me}}">
             <view class="s-main">
               <view class="cover" style="background-image: url({{user.avatarUrl}});">

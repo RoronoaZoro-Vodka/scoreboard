@@ -348,9 +348,8 @@ Page({
         _this.addRoomLog(`${sender.userName}支付了${score}分给${receiver.userName}`)
         // _this.addRoomLog(`${me.userName}发起了退房`)
         if (res.result) {
-          _this.loadRoomUser(_this.data.roomNum)
           _this.setData({
-            'payData.score': 0
+            'payData.score': null
           })
         }
         wx.hideLoading()
@@ -391,6 +390,8 @@ Page({
         })
         if (res.confirm) {
           _this.confirmLeaveRoom()
+        } else {
+          wx.hideLoading()
         }
       }
     })
@@ -400,6 +401,24 @@ Page({
     func.update('tally_room_users', {
       roomNum: _this.data.roomNum
     }, { state: 2 }, true).then((res:any) => {
+      // 若全部离开，则关闭房间
+      func.query('tally_room_users', {
+        roomNum: _this.data.roomNum,
+        state: 1
+      }, false).then((check:any) => {
+        if (check && check.length == 1 && check[0].userId == 'room_tea') {
+            // 关闭房间
+            func.update('tally_room_main', {
+              roomNum: _this.data.roomNum
+            }, {
+              roomStatus: 2
+            }, false)
+            // 清理日志
+            func.remove('tally_room_log', {
+              roomNum: _this.data.roomNum
+            }, false)
+        }
+      })
       wx.hideLoading()
       if (res.stats.updated > 0) {
         wx.redirectTo({
@@ -464,14 +483,10 @@ Page({
   onInputChange(e: any) {
     const name = e.detail.value
     const _this = this
-    const me = _this.me()
-    if (!!me.defaultName) {
-      func.update('sys_user', {}, {userName: name, defaultName: false}, true).then((res:any) => {
-        if (!!res) {
-          _this.loadRoomUser(_this.data.roomNum)
-          func.update('tally_room_main', {roomNum: _this.data.roomNum}, {})
-        }
-      })
-    }
+    func.update('sys_user', {}, {userName: name, defaultName: false}, true).then((res:any) => {
+      if (!!res) {
+        func.update('tally_room_main', {roomNum: _this.data.roomNum}, {})
+      }
+    })
   }
 })

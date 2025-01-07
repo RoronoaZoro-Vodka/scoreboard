@@ -22,8 +22,8 @@
 
   <!-- 操作集合 -->
   <view class="btns">
-    <view class="item" bindtap="setAddRoom">创建房间</view>
-    <view class="item" bindtap="setAddRoomJia">加入房间（扫码）</view>
+    <view class="item" bindtap="setAddRoom">{{inRoom ? '回到房间(' + roomNum + ')' : '创建房间'}}</view>
+    <view class="item" bindtap="setAddRoomJia" wx:if="{{!inRoom}}">加入房间（扫码）</view>
   </view>
 
   <view class="links">

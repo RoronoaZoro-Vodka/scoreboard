@@ -54,5 +54,23 @@ export const func = {
         }
       })
     })
+  },
+  remove: (table:string, query:any, me?:boolean) => {
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'delete',
+        data: {
+          table: table,
+          query: query,
+          me: me || false
+        },
+        success: function (res:any) {
+          resolve(res.result)
+        },
+        fail: (error) => {
+          reject(error)
+        }
+      })
+    })
   }
 }

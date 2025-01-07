@@ -43,11 +43,12 @@ Page({
           const date = new Date(lastUpdateTime)
           element.lastUpdateTimeLabel = formatTime(date)
           element.loading = true
+          element.createTime = formatTime(new Date(element.createTime))
           const roomScore = userRooms.filter((item:any) => item.roomNum == element.roomNum)[0]
           element['iScore'] = roomScore.score
         });
         rooms.sort((l:any, r:any) => {
-          return l.lastUpdateTime - r.lastUpdateTime
+          return r.lastUpdateTime - l.lastUpdateTime
         })
         _this.setData({
           rooms: rooms
@@ -62,7 +63,7 @@ Page({
     });
     const roomNumber = Number(event.detail)
     const room:any = this.data.rooms.filter((item:any) => item.roomNum == roomNumber)[0]
-    if (room.loading) {
+    if (room && room.loading) {
       const _this = this
       func.query('tally_room_users', {roomNum: roomNumber}).then((roomUsers:any) => {
         const userIds:any = []
